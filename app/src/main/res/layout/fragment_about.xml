@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📚 Флибуста Трекер"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Умное отслеживание новых книг авторов"
+        android:layout_marginTop="8dp"
+        android:textColor="#666666"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/aboutVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#888888"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Android-версия десктопного трекера.\nДанные хранятся локально в data.json.\nКниги скачиваются в папку Downloads."
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/aboutCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="© Yu_K 2026"
+        android:textStyle="bold"
+        android:textColor="@color/purple_primary"
+        android:textSize="15sp" />
+</LinearLayout>

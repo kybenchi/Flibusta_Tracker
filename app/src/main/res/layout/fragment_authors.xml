@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/authorsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Список авторов"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_primary" />
+
+    <ProgressBar
+        android:id="@+id/authorsProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="➕ Добавить автора"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/purple_primary" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button android:id="@+id/btnCheckAll"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="🔍 Проверить всех" android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/purple_primary"/>
+            <Button android:id="@+id/btnRefreshNames"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="📛 Обновить имена" android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/gray_btn"/>
+            <Button android:id="@+id/btnResetCheck"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="🔄 Сбросить дату"
+                android:backgroundTint="@color/gray_btn"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/authorsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⚙️ Общие настройки"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дней по умолчанию (для новых авторов):"
+        android:layout_marginTop="20dp"
+        android:textColor="#555555" />
+
+    <EditText
+        android:id="@+id/defaultCutoffInput"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/input_bg"
+        android:padding="12dp" />
+
+    <Button
+        android:id="@+id/btnSaveSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💾 Сохранить"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/purple_primary" />
+
+    <TextView
+        android:id="@+id/lastCheckText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Проверок ещё не было"
+        android:background="@drawable/desc_bg"
+        android:padding="14dp"
+        android:layout_marginTop="24dp"
+        android:textColor="#666666" />
+</LinearLayout>
