@@ -11,9 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yuk.flibustatracker.R
@@ -21,7 +18,6 @@ import com.yuk.flibustatracker.TrackerViewModel
 import com.yuk.flibustatracker.data.Book
 import com.yuk.flibustatracker.ui.adapters.BooksAdapter
 import com.yuk.flibustatracker.util.DownloadHelper
-import kotlinx.coroutines.launch
 
 class BooksFragment : Fragment() {
 
@@ -29,7 +25,7 @@ class BooksFragment : Fragment() {
     private lateinit var adapter: BooksAdapter
     private lateinit var countText: TextView
 
-    private var currentSort = "found"   // author / date / found
+    private var currentSort = "found"
     private var books: List<Book> = emptyList()
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View? =
@@ -63,21 +59,13 @@ class BooksFragment : Fragment() {
         btnDate.setOnClickListener { selectSort("date") }
         btnFound.setOnClickListener { selectSort("found") }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    vm.data.collect { d ->
-                        books = d.books
-                        countText.text = "Найденные книги (${d.books.size})"
-                        render()
-                    }
-                }
-                launch {
-                    vm.toast.collect { msg ->
-                        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+        vm.data.observe(viewLifecycleOwner) { d ->
+            books = d.books
+            countText.text = "Найденные книги (${d.books.size})"
+            render()
+        }
+        vm.toast.observe(viewLifecycleOwner) { msg ->
+            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
 
         selectSort(currentSort)
@@ -99,7 +87,10 @@ class BooksFragment : Fragment() {
             "epub" -> book.epubLink
             else -> book.mobiLink
         }
-        if (url == null) { Toast.makeText(requireContext(), "Ссылка недоступна", Toast.LENGTH_SHORT).show(); return }
+        if (url == null) {
+            Toast.makeText(requireContext(), "Ссылка недоступна", Toast.LENGTH_SHORT).show()
+            return
+        }
         DownloadHelper.download(requireContext(), url, book.url, book.title)
     }
 

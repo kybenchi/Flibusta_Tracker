@@ -14,16 +14,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yuk.flibustatracker.R
 import com.yuk.flibustatracker.TrackerViewModel
 import com.yuk.flibustatracker.data.Author
 import com.yuk.flibustatracker.ui.adapters.AuthorsAdapter
-import kotlinx.coroutines.launch
 
 class AuthorsFragment : Fragment() {
 
@@ -56,23 +52,15 @@ class AuthorsFragment : Fragment() {
         view.findViewById<Button>(R.id.btnRefreshNames).setOnClickListener { vm.refreshNames() }
         view.findViewById<Button>(R.id.btnResetCheck).setOnClickListener { vm.resetLastCheck() }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    vm.data.collect { d ->
-                        adapter.submit(d.authors)
-                        countText.text = "Список авторов (${d.authors.size})"
-                    }
-                }
-                launch {
-                    vm.working.collect { progress.visibility = if (it) View.VISIBLE else View.GONE }
-                }
-                launch {
-                    vm.toast.collect { msg ->
-                        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+        vm.data.observe(viewLifecycleOwner) { d ->
+            adapter.submit(d.authors)
+            countText.text = "Список авторов (${d.authors.size})"
+        }
+        vm.working.observe(viewLifecycleOwner) { w ->
+            progress.visibility = if (w) View.VISIBLE else View.GONE
+        }
+        vm.toast.observe(viewLifecycleOwner) { msg ->
+            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
     }
 
